@@ -1,24 +1,30 @@
 <%- include('partials/header.ejs') %>
-    
+    <!-- this form makes the search box -->
     <form action="/q" method="POST" class="search-form" id="searchForm">
     <div class="input-group mb-3">
         <input type="text" class="form-control" name="searchInput" <% if (search != '') { %> value="<%= search %>" <% } %>>
         <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
     </div>
     </form>
-    
+    <!-- makes the list through looping through the list -->
     <% if (data != null && loggedIn) { data.forEach( item => { %>
     <div class="d-flex flex-row justify-content-between mb-3">
         <div class="d-flex flex-column p-3">
+            <!-- this makes an icon that is an anchor that goes to the menue URL -->
             <a href="<%= item.menuUrl %>" target="_blank"><img src="<%= item.icon %>" class="icon-img"></a>
+            <!-- a logged in user can ... -->
             <% if (loggedIn) { %>
             <div class="mb-1 p-1">
+                    <!-- have an anchor that leads to an edit -->
                 <a href="/menu/<%= item._id %>">Edit</a> &nbsp; 
+                    <!-- have an anchor that deletes -->
                 <a href="/menu/delete/<%= item._id %>" class="red" onclick="return confirm('Are you sure you wish to delete this?');">Delete</a>
             </div>
             <% } %>
         </div>
+            <!-- not logged in users can -->
         <div class="menu-code pt-4 pl-4">
+                <!-- follow the URL in another tab -->
             <a href="<%= item.menuUrl %>" target="_blank">
             <div><i class="fa fa-book-open"></i></div>
             <span class="mb-2">
